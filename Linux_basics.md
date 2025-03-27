@@ -175,7 +175,13 @@ The table below assigns numbers to permission types:
 | `atrm <job_number>` | Remove a specific `at` job using its job number (from `atq`). |
 | `atd` | The background daemon that executes scheduled `at` jobs. |
 | `systemctl status atd` | Check the status of the `atd` service (should be running to execute scheduled jobs). |
-
+| `bg` | moves a job and runs it in the background. |
+| `jobs` | Lists all jobs started in the current shell that are running or in the background. |
+| `fg` | Brings the most recent background job (or a specified one) to the foreground. |
+| `nohup sleep 75 &` | Starts a process in the background and ensures it keeps running even if the terminal is closed. |
+| `nohup sleep 100 > /dev/null 2>&1 &` | Runs a process in the background and silences all output and errors by redirecting them to `/dev/null`. |
+| `nice -n 5 sleep 10` | Starts a process with a "nice" value of 5. Nice values range from `-20 (high priority)` to `19 (low priority)`. |
+| `pkill` | Terminates a process by name. |
 
 ---
 
