@@ -127,7 +127,7 @@ The table below assigns numbers to permission types:
 
 ---
 
-#### 🔎 File Search, Archiving & Wildcards
+#### 🔎 File Search, Archiving, System Admin & Wildcards
 
 | Command | Description |
 |---------|-------------|
@@ -145,6 +145,47 @@ The table below assigns numbers to permission types:
 | `cat file1 file2 > file3` | Combine multiple files into one. |
 | `split -l 300 <file> prefix` | Split file into chunks of 300 lines. Output uses prefix (e.g., prefixaa, prefixab...). |
 | `cmd1; cmd2; cmd3` | Run multiple commands sequentially using semicolons. |
+| `df -h` | Displays disk partition usage in a human-readable format (e.g., GB/MB). |
+| `dmesg` | Shows system messages, including hardware-related warnings, errors, and logs — great for troubleshooting. |
+| `iostat` | Displays input/output statistics for CPU and devices — useful for monitoring disk I/O performance. |
+| `ip route` | Shows routing table information. For cleaner output, you can pipe it through `\| column -t`. |
+| `ss` | Displays active socket connections on the system (like a modern replacement for `netstat`). |
+| `shutdown` | Brings down the system safely. Use `man shutdown` to explore timing and user warning options. |
+| `init 0–6` | Changes the system runlevel. `0` shuts down, `6` reboots, `3` enters multi-user mode. Explore others with `man init`. |
+| `reboot` | Reboots the system immediately. |
+| `halt` | Halts the system — similar to physically holding the power button to shut down the machine. |
+| `hostname` | Displays the current hostname of your system. |
+| `hostnamectl set-hostname <name>` | Changes the system's hostname. The new name is saved in `/etc/hostname`. |
+| `uname -a` | Displays detailed information about the operating system and kernel. You can also use `cat /etc/redhat-release` to view OS release details. |
+| `dmidecode` | Provides detailed hardware information about the system, including BIOS, CPU, memory, and more. |
+| `arch` | Displays the system's architecture (e.g., x86_64, arm64). |
+| `clear` | Clears the terminal screen. |
+| `exit` | Exits the current shell, terminal session, or user session. |
+| `script <filename>` | Records all terminal activity into a log file. If no filename is provided, it defaults to `typescript`. |
+| `sosreport` | Collects diagnostic and configuration information from a CentOS Linux system, including details about installed applications. |
+| `printenv` or `env` | Lists all environment variables available in the current session. |
+| `echo $<variable>` | Displays the value of a specific environment variable. |
+| `export <variable>` | Sets an environment variable for the current session. <br> To make it **permanent for a specific user**, add `export VARIABLE='value'` to `~/.bashrc`. <br> To set it **globally**, modify `/etc/profile` or `/etc/bashrc`. |
+| `dnf install epel-release` | Enables the EPEL repository required to install extra packages on CentOS. |
+| `dnf install screen` | Installs the `screen` terminal multiplexer. |
+| `screen` | Starts a new screen session, allowing multiple shell sessions inside one terminal. |
+| `Ctrl+a` then `Shift+|` | Splits the screen **vertically** in a screen session. |
+| `Ctrl+a` then `Shift+S` | Splits the screen **horizontally** in a screen session. |
+| `Ctrl+a` then `Tab` | Switches focus between split windows. |
+| `Ctrl+a` then `c` | Creates a new shell session within screen. |
+| `screen -r` | Lists detached screen sessions and reattaches them. You can also reattach with `screen -r <session_id>`. |
+| `dnf install tmux -y` | Installs `tmux`, an alternative terminal multiplexer to screen. |
+| `tmux` | Starts a new `tmux` session. |
+| `Ctrl+b` then `Shift+%` | Splits the `tmux` window **vertically**. |
+| `Ctrl+b` then `Shift+"` | Splits the `tmux` window **horizontally**. |
+| `Ctrl+b` then arrow keys | Moves between split panes. |
+| `Ctrl+b` then `d` | Detaches the current session (it keeps running in the background). |
+| `tmux ls` | Lists all active tmux sessions. |
+| `tmux a` or `tmux attach-session -t <name>` | Reattaches to the last or a named tmux session. |
+| `tmux new -s <name>` | Creates a new tmux session with a custom name. |
+| `tmux kill-session -t <name>` | Kills the specified tmux session. |
+| `Ctrl+d` | Closes the current tmux pane/window. |
+
 
 ---
 
