@@ -123,7 +123,17 @@ The table below assigns numbers to permission types:
 | `sed -i '1d' <filename>` | Delete the first line of the file. <br>Use `1,2d` to delete the first two lines. |
 | `sed -n '12,18p' <filename>` | Display only lines 12 to 18 from the file. <br>`-n` suppresses automatic printing, `p` prints only the selected lines. |
 | `sed '12,18d' <filename>` | Show all lines **except** lines 12 to 18. |
-
+| `alias ls="ls -al"` | Creates a shortcut (alias) for `ls` that automatically runs `ls -al`. |
+| `alias pl="pwd; ls"` | Creates a custom alias that runs multiple commands in sequence (`pwd` and then `ls`). Separate commands with a semicolon. |
+| `unalias <name>` | Removes a specific alias from the current shell session. |
+| Add alias to `~/.bashrc` | To make an alias **permanent for a specific user**, add it to `/home/username/.bashrc`. |
+| Add alias to `/etc/bashrc` | To make an alias **available system-wide**, add it to `/etc/bashrc`. |
+| `history` | Displays a list of all previously executed commands in the current shell session. You can re-run a command by using `!<number>` (e.g., `!105` runs command #105). |
+| `if [ condition ]; then ... else ... fi` | Standard `if-else` condition in shell scripting. Executes the `then` block if the condition is true, otherwise runs the `else` block. |
+| `for i in 1 2 3; do ... done` | Loop structure to iterate over a list of items. Runs the code inside the loop for each value of `i`. |
+| `while [ condition ]; do ... done` | Runs the loop **as long as** the condition is true. Great for repeated checks or input loops. |
+| `read <var_name>` | Reads input from the user and stores it in the specified variable. |
+| `case $var in a) ... ;; b) ... ;; *) ... ;; esac` | Used to match a variable against multiple patterns. Acts like a switch-case in other languages. `*` is the default case. |
 
 ---
 
@@ -137,7 +147,7 @@ The table below assigns numbers to permission types:
 | `ls -l *[cd]*` | List files with `c` and `d` in their names. |
 | `diff <f1> <f2>` | Show differences between two files. |
 | `cmp <f1> <f2>` | Compare files byte-by-byte with mismatch position. |
-| `tar cvf archive.tar <file|dir>` | Create tar archive. `.` to include current dir. |
+| `tar cvf archive.tar <file\|dir>` | Create tar archive. `.` to include current dir. |
 | `tar xvf archive.tar` | Extract tar archive. |
 | `gzip <file>` | Compress file with `.gz` extension. |
 | `gzip -d <file>.gz` / `gunzip <file>.gz` | Decompress `.gz` file. |
@@ -151,7 +161,6 @@ The table below assigns numbers to permission types:
 | `ip route` | Shows routing table information. For cleaner output, you can pipe it through `\| column -t`. |
 | `ss` | Displays active socket connections on the system (like a modern replacement for `netstat`). |
 | `shutdown` | Brings down the system safely. Use `man shutdown` to explore timing and user warning options. |
-| `init 0–6` | Changes the system runlevel. `0` shuts down, `6` reboots, `3` enters multi-user mode. Explore others with `man init`. |
 | `reboot` | Reboots the system immediately. |
 | `halt` | Halts the system — similar to physically holding the power button to shut down the machine. |
 | `hostname` | Displays the current hostname of your system. |
@@ -169,7 +178,7 @@ The table below assigns numbers to permission types:
 | `dnf install epel-release` | Enables the EPEL repository required to install extra packages on CentOS. |
 | `dnf install screen` | Installs the `screen` terminal multiplexer. |
 | `screen` | Starts a new screen session, allowing multiple shell sessions inside one terminal. |
-| `Ctrl+a` then `Shift+|` | Splits the screen **vertically** in a screen session. |
+| `Ctrl+a` then `Shift+\|` | Splits the screen **vertically** in a screen session. |
 | `Ctrl+a` then `Shift+S` | Splits the screen **horizontally** in a screen session. |
 | `Ctrl+a` then `Tab` | Switches focus between split windows. |
 | `Ctrl+a` then `c` | Creates a new shell session within screen. |
@@ -185,6 +194,12 @@ The table below assigns numbers to permission types:
 | `tmux new -s <name>` | Creates a new tmux session with a custom name. |
 | `tmux kill-session -t <name>` | Kills the specified tmux session. |
 | `Ctrl+d` | Closes the current tmux pane/window. |
+| `init 0–6` | Changes the system runlevel:<br>• `0` – Halt (shutdown)<br>• `1` – Single-user mode<br>• `2` – Multi-user mode (no GUI, no NFS)<br>• `3` – Full multi-user mode (no GUI)<br>• `4` – Undefined (user-definable)<br>• `5` – Multi-user mode with GUI<br>• `6` – Reboot system<br><br>Run `man init` for more juicy details. |
+| `who -r` | Shows the current system runlevel—because knowing your level is half the battle. |
+| **Power → CPU → BIOS (POST: Power-On Self Test) → CMOS → MBR → Applications → CPU** | This is the **basic bootstrapping flow**—aka how your machine wakes up and says, “Let’s get to work.” |
+| **BIOS → MBR → GRUB → Kernel → Systemd → Runlevel** | The **Linux Boot Process**, marching in perfect formation from firmware to user space. |
+| `df -h` | Displays disk storage in **human-readable** format. No more deciphering raw byte counts—your brain deserves a break. |
+| `fdisk -l` | Lists **detailed partition info** of all disks. Great for snooping into your storage setup like a pro. |
 
 
 ---
@@ -223,6 +238,54 @@ The table below assigns numbers to permission types:
 | `nohup sleep 100 > /dev/null 2>&1 &` | Runs a process in the background and silences all output and errors by redirecting them to `/dev/null`. |
 | `nice -n 5 sleep 10` | Starts a process with a "nice" value of 5. Nice values range from `-20 (high priority)` to `19 (low priority)`. |
 | `pkill` | Terminates a process by name. |
+| `wget http://website.com/filename` | Downloads a file from the internet using `wget`. |
+| `curl http://website.com/filename` <br> `curl -O http://website.com/filename` | Uses `curl` to fetch content from a URL. The `-O` flag saves the file with its original name. |
+| `rpm -qa \| grep ftp` | Lists all installed packages and filters for any related to FTP (e.g., to check if `vsftpd` is installed). |
+| `yum install vsftpd` | Installs the `vsftpd` FTP server package using `yum`. |
+| `scp <filename> <username>@<ip>:<dest_location>` | Securely copies a file from your local server to a remote server using SSH (`sshd` runs on port 22). |
+| `rsync` | Transfers files from one server to another based on differences in file size and modification time. Uses SSH protocol (`sshd` on port 22). Efficient for syncing large files — only the changed parts are transferred. |
+| `rsync <options> <source> <destination>` | General syntax for running `rsync` commands. |
+| `yum install rsync` (CentOS) <br> `apt-get install rsync` (Ubuntu/Debian) | Installs the `rsync` package on the respective Linux distributions. |
+| `rsync -avz <file>.tar <username>@<ip>:<destination>` | Sends a file from the local machine to a remote machine using `rsync` over SSH. |
+| `rsync -azvh <source> <destination>` | Transfers a **directory** within the same machine. For files, use `-zvh` instead. |
+| `rsync -avzh <user>@<ip>:<remote_path> <local_path>` | Pulls files or directories from a **remote machine to the current machine**. |
+| `yum` / `dnf` | `dnf` is the modern package manager for CentOS (replaces `yum`, which is now deprecated). Equivalent to `apt-get` on Debian/Ubuntu systems. |
+| `rpm` | Used to install a package from a downloaded file. <br>`rpm -qa` lists all installed packages. <br>`rpm -e <package>` removes a package. |
+| `rpm -ivh <package_name>` | Installs an `.rpm` package with verbose and hash progress (`-i` = install, `-v` = verbose, `-h` = progress bar). |
+| `rpm -qi <package_name>` | Displays detailed information about an installed package. |
+| `rpm -qc <package_name>` | Lists configuration files provided by the package. |
+| `rpm -qf /usr/bin/<command>` | Identifies which installed package a particular command belongs to. Use `which <command>` first to find the command's full path. |
+| `dnf remove <package>` | Removes a package using `dnf`. |
+| `dnf update <package>` / `yum update <package>` | Updates a package to its latest version while preserving previously installed versions. Add `-y` to skip confirmation prompts. |
+| `dnf upgrade <package>` / `yum upgrade <package>` | Upgrades installed packages and removes obsolete ones. |
+| `yum history undo <id>` | Reverts all changes made by a specific ID. Useful for rolling back package updates. |
+| `PTR Record` | Resolves an IP address to a hostname (reverse DNS). |
+| `A Record` | Maps a hostname to an IPv4 address. |
+| `CNAME Record` | Maps one hostname to another (canonical name). |
+| `named` | Daemon that runs the DNS server (part of BIND). |
+| `nslookup <website>` / `dig <website>` | Queries DNS records for a domain. `dig` provides more detailed output. |
+| `traceroute <website>` | to trace teh package and troubleshoot. |
+| `ipconfig snp0s3` | Ip for all interfaces running.|
+| `podman` | Used for managing containers, pods, and images. Supports operations like running, stopping, starting containers, checking status (`ps`), attaching to containers, etc. |
+| `buildah` | Focused on building, pushing, and signing container images. Complements `podman` by handling image creation tasks. |
+| `skopeo` | Used for copying, inspecting, deleting, and signing images — especially useful when interacting with remote container registries. |
+| `runc` | Low-level container runtime used by `podman` and `buildah` to run and build containers. |
+| `crun` | An alternative OCI-compatible runtime with enhanced flexibility, performance, and security — particularly suited for running **rootless containers** (containers that do not require root privileges). |
+| `podman -v` | Displays the version of Podman installed. The output may vary depending on the operating system version. |
+| `podman --help` | Lists all available commands and options for Podman. Useful for quick reference. |
+| `man podman` | Opens the manual page for Podman, just like with other Linux commands. Great for detailed usage info. |
+| `podman info` | Displays Podman's environment configuration, including storage drivers, registries, and default settings. <br>When pulling an image, Podman checks the local machine first, then attempts registries in the listed order. |
+| `podman search <image>` | Searches for container images in the default or specified registry. |
+| `podman images` | Lists all container images available on the local system. |
+| `podman pull <image>` | Downloads the specified image from a container registry. |
+| `podman ps` | Displays all currently running containers. |
+| `podman run -dt -p 8080:80/tcp <image_registry>` | Runs a container in detached mode (`-d`) with a pseudo-TTY (`-t`), and maps port `8080` on the host to port `80` inside the container. |
+| `podman logs -l` | Shows logs for the most recently created container. |
+| `podman stop <container_id or name>` | Stops a running container. |
+| `podman create --name <name> <image_registry>` | Creates a container from an image without starting it. Assigns it a custom name. |
+| `podman generate systemd --new --files --name <container_name>` | Generates a systemd unit file to manage the container as a service. |
+| `cp /root/container-httpd.service /etc/systemd/system` | Copies the generated systemd unit file to the appropriate directory. |
+| `systemctl enable container-httpd.service` | Enables the container service so it starts automatically on boot. |
 
 ---
 
